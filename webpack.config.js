@@ -19,12 +19,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        'src/site.webmanifest',
-        'src/browserconfig.xml',
-        'src/sitemap.xml',
         'src/robots.txt',
-        { from: 'src/assets/icons', to: 'assets/icons' },
-        { from: 'src/assets/download', to: 'assets/download' },
         { from: 'src/assets', to: 'assets' },
       ]
     }),
