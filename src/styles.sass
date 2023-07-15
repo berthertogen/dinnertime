@@ -1,15 +1,14 @@
 @import "~bootstrap/scss/bootstrap-grid.scss"
-  
+
 $blue: #01136F
 $lightblue: #5194DD
-  
-@font-face 
+
+@font-face
   font-family: 'AmericanCaptain'
   src: url('./assets/fonts/AmericanCaptain.woff') format('woff'), url('./assets/fonts/AmericanCaptain.ttf') format('truetype'), url('./assets/fonts/AmericanCaptain.otf') format('otf')
   font-weight: 600
   font-style: normal
   font-display: swap
-
 
 html
   min-height: 100%
@@ -20,6 +19,11 @@ html
     margin: 0 auto
     font-family: 'Arial Narrow'
     min-height: 100%
+    display: flex
+    justify-content: center
+    flex-direction: column
+    align-items: center
+    margin-top: 1em
 
     p
       margin: 0
@@ -43,6 +47,18 @@ html
 
     .lightblue
       color: $lightblue
-      
+
     .blue
       color: $blue
+
+    .card
+      margin-bottom: 1em
+      width: 18rem
+
+      .list-group-item
+        display: flex
+        justify-content: space-between
+
+    .btn-primary,
+    #dinnerTime
+      width: 18rem
