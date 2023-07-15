@@ -12,7 +12,7 @@ async function loadDinners() {
     const timeFromText = timeFrom.toFormat("hh:mm");
     document.getElementById('dinners').innerHTML += `
     <li class="list-group-item">
-    <span>${timeFromText}</span>
+    <span>${timeFromText} geleden</span>
     <span>${dinnerDate.toFormat("dd/MM/yyyy HH:mm")}</span>
     </li>`;
   }

@@ -6,5 +6,6 @@ module.exports = async function (context, req) {
             .filter(dinner => new Date(dinner.time) > yesterday)
             .sort((a, b) => a.time > b.time ? -1 : 1)
             .map(dinner => dinner.time)
+            .slice(0, 10)
     };
 }
