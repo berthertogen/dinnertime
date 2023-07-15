@@ -12,8 +12,8 @@ async function loadDinners() {
     const timeFromText = timeFrom.toFormat("hh:mm");
     document.getElementById('dinners').innerHTML += `
     <li class="list-group-item">
-      <span>${dinnerDate.toFormat("dd/MM/yyyy HH:mm")}</span>
-      <span>${timeFromText}</span>
+    <span>${timeFromText}</span>
+    <span>${dinnerDate.toFormat("dd/MM/yyyy HH:mm")}</span>
     </li>`;
   }
 }
@@ -23,8 +23,8 @@ async function addDinner() {
   await fetch(`/api/postdinner`, {
     method: 'POST',
     headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(datetime.toISO())
   })
