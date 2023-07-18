@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode production",
     "start": "webpack serve --mode development",
-    "swa": "swa start src --api-location api"
+    "swa": "swa start swa-cli.config.json"
   },
   "repository": {
     "type": "git",

@@ -6,21 +6,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="msapplication-TileColor" content="#2d89ef">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Bert Hertogen - Problem-solving, Eager to learn, Flexible, Team player">
 
   <title>Dinnertime - Bert Hertogen</title>
 </head>
 
 <body>
   <div class="card">
-    <div class="card-header">
-      Dinners
+    <div class="card-header d-flex justify-content-between">
+      <span>Dinners</span>
+      <div class="d-none row" id="addDinnerPnl">
+        <div class="col-auto">
+          <input type="time" class="form-control" id="dinnerTime" placeholder="Dinner time">
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-primary" id="addDinner">+</button>
+        </div>
+      </div>
+      <div class="spinner-border spinner-border-sm" role="status" id="spinnerDinner">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
     <ul class="list-group list-group-flush" id="dinners">
     </ul>
   </div>
-  <input type="time" class="form-control" id="dinnerTime" placeholder="Dinner time">
-  <button type="button" class="btn btn-primary" style="width: 18rem;" id="addDinner">Dinner was served</button>
+  
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <span>Naps</span>
+      <div class="d-none row" id="addNapPnl">
+        <div class="col-auto">
+          <button type="button" class="btn btn-primary" id="addNapStart">Start</button>
+          <button type="button" class="btn btn-primary" id="addNapStop">Stop</button>
+        </div>
+      </div>
+      <div class="spinner-border spinner-border-sm" role="status" id="spinnerNap">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush" id="naps">
+    </ul>
+  </div>
 </body>
 
 </html>
