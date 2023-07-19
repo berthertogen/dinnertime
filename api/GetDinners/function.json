@@ -14,7 +14,8 @@
       "type": "table",
       "tableName": "dinners",
       "connection": "DinnerTimeConnection",
-      "direction": "in"
+      "direction": "in",
+      "filter": "(PartitionKey eq '{today}') or (PartitionKey eq '{yesterday}')"
     },
     {
       "type": "http",
