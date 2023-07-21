@@ -18,7 +18,7 @@ module.exports = async function (context, req) {
         if (nap.type === 'start' && i === filteredAndSortedNaps.length - 1) {
             mappedNaps.push({
                 from: new Date(nap.time),
-                till: new Date(),
+                till: undefined,
                 sleeping: true,
             });
         }

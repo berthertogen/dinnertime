@@ -42,7 +42,7 @@ export async function main() {
   document.getElementById('addDinner').addEventListener('click', addDinner);
   await loadDinners();
 
-  setTimeout(async () => {
+  setInterval(async () => {
     await loadDinners();
   }, 30000);
 }
