@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Dialog, { Title, Content, Actions } from '@smui/dialog';
+	import Button, { Label } from '@smui/button';
 	import LinearProgress from '@smui/linear-progress';
 	import BottomAppBar, { Section, AutoAdjust } from '@smui-extra/bottom-app-bar';
 	import IconButton from '@smui/icon-button';
@@ -9,18 +11,23 @@
 	import { DateTime } from 'luxon';
 	import { invalidateAll } from '$app/navigation';
 	import { dinners, lastNap, naps } from './stores';
+	import SveltyPicker from 'svelty-picker';
 
 	let bottomAppBar: BottomAppBar;
 
 	$: naps.set($page.data.naps);
 	$: dinners.set($page.data.dinners);
-	$: loading = false
+	$: loading = false;
+	$: open = false;
+	$: myTime = DateTime.now().toFormat('HH:mm');
 
+	async function openTimePicker() {
+		open = true;
+	}
 
 	async function addDinner() {
 		loading = true;
-		const time = DateTime.now().toFormat('HH:mm');
-		const datetime = DateTime.fromFormat(time, 'HH:mm');
+		const datetime = DateTime.fromFormat(myTime, 'HH:mm');
 		await fetch(`/api/postdinner`, {
 			method: 'POST',
 			headers: {
@@ -31,7 +38,9 @@
 		});
 		invalidateAll().then(() => {
 			loading = false;
-		})
+			open = false;
+			myTime = DateTime.now().toFormat('HH:mm');
+		});
 	}
 	async function toggleNap(sleeping: boolean) {
 		loading = true;
@@ -48,7 +57,7 @@
 		});
 		invalidateAll().then(() => {
 			loading = false;
-		})
+		});
 	}
 </script>
 
@@ -57,6 +66,27 @@
 <AutoAdjust {bottomAppBar}>
 	<Dinner />
 	<Nap />
+	<Dialog bind:open aria-labelledby="simple-title" aria-describedby="simple-content">
+		<SveltyPicker
+			pickerOnly={true}
+			mode="time"
+			format="hh:ii"
+			clearBtn={false}
+			bind:value={myTime}
+		/>
+		<Actions>
+			<Button on:click={() => (open = false)}>
+				<Label>Cancel</Label>
+			</Button>
+			<Button
+				on:click={async () => {
+					await addDinner();
+				}}
+			>
+				<Label>Save</Label>
+			</Button>
+		</Actions>
+	</Dialog>
 </AutoAdjust>
 
 <BottomAppBar bind:this={bottomAppBar}>
@@ -65,7 +95,7 @@
 	</Section>
 	<Section>
 		<Fab aria-label="Add dinner">
-			<Icon class="material-icons" on:click={() => addDinner()}>restaurant</Icon>
+			<Icon class="material-icons" on:click={() => openTimePicker()}>restaurant</Icon>
 		</Fab>
 		<Fab aria-label="Start/Stop nap">
 			<Icon class="material-icons" on:click={() => toggleNap($lastNap?.sleeping)}>

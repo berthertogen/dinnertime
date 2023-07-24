@@ -48,6 +48,7 @@
   "type": "module",
   "dependencies": {
     "@types/luxon": "^3.3.1",
-    "luxon": "^3.3.0"
+    "luxon": "^3.3.0",
+    "svelty-picker": "^4.0.1"
   }
 }
