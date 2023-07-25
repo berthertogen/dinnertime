@@ -5,7 +5,10 @@ export const dinners = writable([]);
 export const last3Dinners = derived(dinners, ($dinners) => {
   return $dinners
     .slice(0, 3)
-    .map((dinner: any) => DateTime.fromISO(dinner).toFormat("cccc 'at' HH:mm"));
+    .map((dinner: any) => ({
+      display: DateTime.fromISO(dinner).toFormat("cccc 'at' HH:mm"),
+      dinner,
+    }));
 });
 export const dinnersToday = derived(dinners, ($dinners) => {
   const today = DateTime.now().toFormat('yyyy-MM-dd');
@@ -42,6 +45,7 @@ export const last3Naps = derived(naps, ($naps) => {
   return $naps
     .slice(0, 3)
     .map((nap: any) => ({
+      from_date: nap.from,
       from: DateTime.fromISO(nap.from).toFormat('cccc HH:mm'),
       till: nap.sleeping ? '...' : DateTime.fromISO(nap.till).toFormat('HH:mm'),
       sleeping: nap.sleeping,
