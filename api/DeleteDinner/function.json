@@ -1,25 +1,23 @@
 {
-  "bindings": [
-    {
-      "authLevel": "anonymous",
-      "type": "httpTrigger",
-      "direction": "in",
-      "name": "req",
-      "methods": [
-        "delete"
-      ]
-    },
-    {
-      "tableName": "dinners",
-      "connection": "DinnerTimeConnection",
-      "name": "tableBinding",
-      "type": "table",
-      "direction": "out"
-    },
-    {
-      "type": "http",
-      "direction": "out",
-      "name": "res"
-    }
-  ]
+	"bindings": [
+		{
+			"authLevel": "anonymous",
+			"type": "httpTrigger",
+			"direction": "in",
+			"name": "req",
+			"methods": ["delete"]
+		},
+		{
+			"tableName": "dinners",
+			"connection": "DinnerTimeConnection",
+			"name": "tableBinding",
+			"type": "table",
+			"direction": "out"
+		},
+		{
+			"type": "http",
+			"direction": "out",
+			"name": "res"
+		}
+	]
 }

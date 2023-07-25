@@ -17,7 +17,6 @@ const config = {
 			assets: 'build',
 			fallback: null
 		})
-
 	}
 };
 

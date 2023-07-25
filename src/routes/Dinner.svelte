@@ -9,7 +9,6 @@
 	function deleteDinner(dinner: any) {
 		dispatch('deleteDinner', dinner);
 	}
-	
 </script>
 
 <Paper>

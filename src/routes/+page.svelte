@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Dialog, { Title, Content, Actions } from '@smui/dialog';
+	import Dialog, { Actions } from '@smui/dialog';
 	import Button, { Label } from '@smui/button';
 	import LinearProgress from '@smui/linear-progress';
 	import BottomAppBar, { Section, AutoAdjust } from '@smui-extra/bottom-app-bar';
@@ -83,9 +83,9 @@
 		await fetch('/api/deletenap', {
 			method: 'DELETE',
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(nap.from_date),
+			body: JSON.stringify(nap.from_date)
 		});
 		invalidateAll();
 	}
@@ -98,13 +98,13 @@
 	<Nap on:deleteNap={handleDeleteNap} />
 	<Dialog bind:open aria-labelledby="simple-title" aria-describedby="simple-content">
 		{#key myTime}
-		<SveltyPicker
-			pickerOnly={true}
-			mode="time"
-			format="hh:ii"
-			clearBtn={false}
-			bind:value={myTime}
-		/>
+			<SveltyPicker
+				pickerOnly={true}
+				mode="time"
+				format="hh:ii"
+				clearBtn={false}
+				bind:value={myTime}
+			/>
 		{/key}
 		<Actions>
 			<Button on:click={() => (open = false)}>

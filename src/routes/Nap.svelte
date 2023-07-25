@@ -9,7 +9,6 @@
 	function deleteNap(dinner: any) {
 		dispatch('deleteNap', dinner);
 	}
-	
 </script>
 
 <Paper>

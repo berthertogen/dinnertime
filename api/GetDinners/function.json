@@ -1,26 +1,24 @@
 {
-  "bindings": [
-    {
-      "authLevel": "anonymous",
-      "type": "httpTrigger",
-      "direction": "in",
-      "name": "req",
-      "methods": [
-        "get"
-      ]
-    },
-    {
-      "name": "dinnerEntity",
-      "type": "table",
-      "tableName": "dinners",
-      "connection": "DinnerTimeConnection",
-      "direction": "in",
-      "filter": "(PartitionKey eq '{today}') or (PartitionKey eq '{yesterday}')"
-    },
-    {
-      "type": "http",
-      "direction": "out",
-      "name": "res"
-    }
-  ]
+	"bindings": [
+		{
+			"authLevel": "anonymous",
+			"type": "httpTrigger",
+			"direction": "in",
+			"name": "req",
+			"methods": ["get"]
+		},
+		{
+			"name": "dinnerEntity",
+			"type": "table",
+			"tableName": "dinners",
+			"connection": "DinnerTimeConnection",
+			"direction": "in",
+			"filter": "(PartitionKey eq '{today}') or (PartitionKey eq '{yesterday}')"
+		},
+		{
+			"type": "http",
+			"direction": "out",
+			"name": "res"
+		}
+	]
 }
