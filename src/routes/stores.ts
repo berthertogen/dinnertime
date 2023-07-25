@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon';
 import { derived, writable } from 'svelte/store';
 
+export const loader = writable(false);
+
 export const dinners = writable([]);
 export const last3Dinners = derived(dinners, ($dinners) => {
 	return $dinners.slice(0, 3).map((dinner: any) => ({

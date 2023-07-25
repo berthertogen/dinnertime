@@ -11,7 +11,7 @@
 	}
 </script>
 
-<Paper>
+<Paper class="dinner">
 	<Title>Dinners</Title>
 	<Content>
 		Last dinner was at <strong>{$lastDinnerAt}</strong><br />

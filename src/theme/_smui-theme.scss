@@ -3,13 +3,11 @@
 @use '@material/theme/color-palette';
 
 // Svelte Colors!
-@use '@material/theme/index' as theme with (
-	$primary: #ff3e00,
+@use '@material/theme/index' as theme with ($primary: #ff3e00,
 	$secondary: #676778,
 	$surface: #fff,
 	$background: #fff,
-	$error: color-palette.$red-900
-);
+	$error: color-palette.$red-900);
 
 html,
 body {
@@ -39,7 +37,9 @@ hr {
 	border-color: var(--mdc-theme-secondary, #676778);
 }
 
-.smui-paper {
+.dinner,
+.nap {
 	margin: 0.5em;
 	margin-bottom: 1em;
+	padding: 1em !important;
 }

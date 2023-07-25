@@ -11,7 +11,7 @@
 	}
 </script>
 
-<Paper>
+<Paper class="nap">
 	<Title>Naps</Title>
 	<Content>
 		{#if $lastNap?.sleeping}
