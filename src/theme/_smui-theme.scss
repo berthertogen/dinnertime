@@ -3,13 +3,11 @@
 @use '@material/theme/color-palette';
 
 // Svelte Colors!
-@use '@material/theme/index' as theme with (
-  $primary: #ff3e00,
+@use '@material/theme/index' as theme with ($primary: #ff3e00,
   $secondary: #676778,
   $surface: #fff,
   $background: #fff,
-  $error: color-palette.$red-900
-);
+  $error: color-palette.$red-900);
 
 html,
 body {
@@ -20,13 +18,26 @@ body {
 a {
   color: #40b3ff;
 }
+
 a:visited {
   color: color.scale(#40b3ff, $lightness: -35%);
 }
+
 a.material-icons:visited {
   color: #fff
 }
 
 .mdc-fab {
   margin-left: 1em;
+}
+
+hr {
+  border: 0;
+  border-top: solid 1px;
+  border-color: var(--mdc-theme-secondary, #676778);
+}
+
+.smui-paper {
+  margin: 0.5em;
+  margin-bottom: 1em;
 }

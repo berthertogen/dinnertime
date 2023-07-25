@@ -22,7 +22,14 @@
 	$: myTime = DateTime.now().toFormat('HH:mm');
 
 	async function openTimePicker() {
+		myTime = DateTime.now().toFormat('HH:mm');
 		open = true;
+	}
+	async function handleDeleteDinner(event: any) {
+		await deleteDinner(event.detail);
+	}
+	async function handleDeleteNap(event: any) {
+		await deleteNap(event.detail);
 	}
 
 	async function addDinner() {
@@ -42,6 +49,19 @@
 			myTime = DateTime.now().toFormat('HH:mm');
 		});
 	}
+	async function deleteDinner(dinner: any) {
+		loading = true;
+		await fetch('/api/deletedinner', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(dinner)
+		});
+		invalidateAll().then(() => {
+			loading = false;
+		});
+	}
 	async function toggleNap(sleeping: boolean) {
 		loading = true;
 		const time = DateTime.now().toFormat('HH:mm');
@@ -59,14 +79,25 @@
 			loading = false;
 		});
 	}
+	async function deleteNap(nap: any) {
+		await fetch('/api/deletenap', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(nap.from_date),
+		});
+		invalidateAll();
+	}
 </script>
 
 <LinearProgress indeterminate closed={!loading} />
 
 <AutoAdjust {bottomAppBar}>
-	<Dinner />
-	<Nap />
+	<Dinner on:deleteDinner={handleDeleteDinner} />
+	<Nap on:deleteNap={handleDeleteNap} />
 	<Dialog bind:open aria-labelledby="simple-title" aria-describedby="simple-content">
+		{#key myTime}
 		<SveltyPicker
 			pickerOnly={true}
 			mode="time"
@@ -74,6 +105,7 @@
 			clearBtn={false}
 			bind:value={myTime}
 		/>
+		{/key}
 		<Actions>
 			<Button on:click={() => (open = false)}>
 				<Label>Cancel</Label>

@@ -2,21 +2,17 @@
 	import Paper, { Title, Content } from '@smui/paper';
 	import IconButton from '@smui/icon-button';
 	import { last3Naps, lastNap, napsToday, lastNapElapsed, timeFromLastNap } from './stores';
-	import { invalidateAll } from '$app/navigation';
+	import { createEventDispatcher } from 'svelte';
 
-	async function deleteNap(nap: any) {
-		await fetch('/api/deletenap', {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(nap.from_date),
-		});
-		invalidateAll();
+	const dispatch = createEventDispatcher();
+
+	function deleteNap(dinner: any) {
+		dispatch('deleteNap', dinner);
 	}
+	
 </script>
 
-<Paper variant="unelevated">
+<Paper>
 	<Title>Naps</Title>
 	<Content>
 		{#if $lastNap?.sleeping}
@@ -37,7 +33,11 @@
 </Paper>
 
 <style>
+	.row:last-child {
+		border-bottom: none;
+	}
 	.row {
+		border-bottom: 1px solid #676778;
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
