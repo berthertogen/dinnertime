@@ -65,3 +65,15 @@ export const lastNapElapsed = derived(naps, ($naps, set) => {
     clearInterval(interval)
   }
 });
+export const timeFromLastNap = derived(naps, ($naps, set) => {
+  const calc = () => {
+    const lastNap = DateTime.fromISO($naps[0]?.till);
+    const x = lastNap.isValid ? DateTime.now().diff(lastNap, ['hours', 'minutes', 'seconds']).toFormat('hh:mm:ss') : 'N/A';
+    set(x)
+  };
+  calc()
+  const interval = setInterval(calc, 1000)
+  return () => {
+    clearInterval(interval)
+  }
+})
