@@ -88,7 +88,6 @@
 <BottomAppBar bind:this={bottomAppBar}>
 	<Section>
 		<IconButton class="material-icons" aria-label="Home" href="/">home</IconButton>
-		<IconButton class="material-icons" aria-label="Stats" href="/stats">query_stats</IconButton>
 	</Section>
 	<Section>
 		<Fab aria-label="Add dinner">
