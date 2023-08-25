@@ -23,3 +23,24 @@ a {
 a:visited {
 	color: color.scale(#40b3ff, $lightness: -35%);
 }
+
+a.material-icons:visited {
+	color: #fff;
+}
+
+.mdc-fab {
+	margin-left: 1em;
+}
+
+hr {
+	border: 0;
+	border-top: solid 1px;
+	border-color: var(--mdc-theme-secondary, #676778);
+}
+
+.dinner,
+.nap {
+	margin: 0.5em;
+	margin-bottom: 1em;
+	padding: 1em !important;
+}
