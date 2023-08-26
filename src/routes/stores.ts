@@ -43,11 +43,15 @@ const calNap = (nap: any) => {
 };
 export const last3Naps = derived(naps, ($naps) => {
 	return $naps.slice(0, 3).map((nap: any) => ({
-		from_date: nap.from,
 		from: DateTime.fromISO(nap.from).toFormat('cccc HH:mm'),
 		till: nap.sleeping ? '...' : DateTime.fromISO(nap.till).toFormat('HH:mm'),
 		sleeping: nap.sleeping,
-		elapsed: nap.sleeping ? undefined : calNap(nap)
+		elapsed: nap.sleeping ? undefined : calNap(nap),
+		nap: {
+			...nap,
+			from: DateTime.fromISO(nap.from),
+			till: DateTime.fromISO(nap.till),
+		}
 	}));
 });
 export const napsToday = derived(naps, ($naps) => {

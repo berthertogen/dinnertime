@@ -4,6 +4,7 @@
 	import Nap from './Nap.svelte';
 	import { invalidateAll } from '$app/navigation';
 	import { dinners, naps, loader } from './stores';
+	import { DateTime } from 'luxon';
 
 	$: naps.set($page.data.naps);
 	$: dinners.set($page.data.dinners);
@@ -11,9 +12,7 @@
 	async function handleDeleteDinner(event: any) {
 		await deleteDinner(event.detail);
 	}
-	async function handleDeleteNap(event: any) {
-		await deleteNap(event.detail);
-	}
+
 
 	async function deleteDinner(dinner: any) {
 		loader.set(true);
@@ -28,6 +27,10 @@
 			loader.set(false);
 		});
 	}
+
+	async function handleDeleteNap(event: any) {
+		await deleteNap(event.detail);
+	}
 	async function deleteNap(nap: any) {
 		loader.set(true);
 		await fetch('/api/deletenap', {
@@ -35,7 +38,31 @@
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(nap.from_date)
+			body: JSON.stringify({
+				from: nap.nap.from,
+				till: nap.nap.till,
+			})
+		});
+		invalidateAll().then(() => {
+			loader.set(false);
+		});
+	}
+	
+	async function handleEditNap(event: any) {
+		await deleteNap(event.detail.nap);
+		await editNap(event);
+	}
+	async function editNap(event: any) {
+		loader.set(true);
+		await fetch('/api/postnap', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				from: DateTime.fromFormat(event.detail.timeFrom, 'HH:mm').toISO(),
+				till: event.detail.timeTill ? DateTime.fromFormat(event.detail.timeTill, 'HH:mm').toISO() : undefined
+			})
 		});
 		invalidateAll().then(() => {
 			loader.set(false);
@@ -45,5 +72,5 @@
 
 <slot name="main">
 	<Dinner on:deleteDinner={handleDeleteDinner} />
-	<Nap on:deleteNap={handleDeleteNap} />
+	<Nap on:deleteNap={handleDeleteNap} on:editNap={handleEditNap} />
 </slot>

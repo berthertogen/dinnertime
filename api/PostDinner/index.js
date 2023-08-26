@@ -1,10 +1,12 @@
+const { DateTime } = require("luxon");
+
 module.exports = async function (context, req) {
-	const date = new Date(req.body);
+	const date = DateTime.fromISO(req.body);
 	context.bindings.tableBinding = [];
 	context.bindings.tableBinding.push({
-		PartitionKey: date.toISOString().substring(0, 10),
-		RowKey: date.toISOString().substring(11),
-		time: req.body
+		PartitionKey: date.toFormat('yyyy-MM-dd'),
+		RowKey: date.toFormat('HH:mm:ss.SSS'),
+		time: date.toISO(),
 	});
 	context.res = {
 		body: { status: 'OK' }

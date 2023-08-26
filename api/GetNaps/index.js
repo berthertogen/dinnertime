@@ -1,7 +1,9 @@
+const { DateTime } = require("luxon");
+
 module.exports = async function (context, req) {
-	const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+	const yesterday = DateTime.now().minus({ days: 1 });
 	const filteredAndSortedNaps = context.bindings.napEntity
-		.filter((nap) => new Date(nap.time) > yesterday)
+		.filter((nap) => DateTime.fromISO(nap.time) > yesterday)
 		.sort((a, b) => (a.time > b.time ? 1 : -1));
 
 	const mappedNaps = [];
@@ -10,14 +12,14 @@ module.exports = async function (context, req) {
 		const nap = filteredAndSortedNaps[i];
 		if (nap.type === 'stop' && prevNap && prevNap.type === 'start') {
 			mappedNaps.push({
-				from: new Date(prevNap.time),
-				till: new Date(nap.time),
+				from: DateTime.fromISO(prevNap.time),
+				till: DateTime.fromISO(nap.time),
 				sleeping: false
 			});
 		}
 		if (nap.type === 'start' && i === filteredAndSortedNaps.length - 1) {
 			mappedNaps.push({
-				from: new Date(nap.time),
+				from: DateTime.fromISO(nap.time),
 				till: undefined,
 				sleeping: true
 			});

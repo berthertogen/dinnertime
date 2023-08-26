@@ -10,7 +10,8 @@
 
 	$: open = false;
 	let timeFrom = '';
-	let timeTo = '';
+	let timeTill = '';
+	let editingNap: any = null;
 
 	const dispatch = createEventDispatcher();
 
@@ -19,11 +20,22 @@
 	}
 	async function openNapUpdater(nap: any) { 
 		open = true;
+		timeFrom = nap.nap.from.toFormat('HH:mm');
+		timeTill = nap.sleeping ? '' : nap.nap.till.toFormat('HH:mm');
+		editingNap = nap;
 	}
 
 	async function updateNap() {
+		dispatch('editNap', {
+			nap: {...editingNap},
+			timeFrom,
+			timeTill
+		});
 		invalidateAll().then(() => {
 			open = false;
+			timeFrom = '';
+			timeTill = '';
+			editingNap = null;
 		});
 	}
 </script>
@@ -49,12 +61,11 @@
 	</Content>
 </Paper>
 
-<Dialog bind:open aria-labelledby="simple-title" aria-describedby="simple-content">
+<Dialog bind:open>
+	<div class="timefields">
 	<Textfield type="time" bind:value={timeFrom} label="From"/>
-	<Textfield type="time" bind:value={timeTo} label="To"/>
-	<pre>
-		{timeFrom} - {timeTo}
-	</pre>
+	<Textfield type="time" bind:value={timeTill} label="To"/>
+	</div>
 	<Actions>
 		<Button on:click={() => (open = false)}>
 			<Label>Cancel</Label>
@@ -79,5 +90,11 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+	}
+
+	.timefields {
+		margin: 1em;
+		display: flex;
+    flex-direction: column;
 	}
 </style>

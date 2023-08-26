@@ -1,9 +1,10 @@
-let azure = require('azure-storage');
+const azure = require('azure-storage');
+const { DateTime } = require("luxon");
 
 module.exports = async function (context, req) {
-	const date = new Date(req.body);
-	const partitionKey = date.toISOString().substring(0, 10);
-	const rowKey = date.toISOString().substring(11);
+	const date = DateTime.fromISO(req.body);
+	const partitionKey = date.toFormat('yyyy-MM-dd');
+	const rowKey = date.toFormat("HH:mm:ss.SSS");
 
 	let connectionString = process.env.DinnerTimeConnection;
 	let tableService = azure.createTableService(connectionString);
